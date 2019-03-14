@@ -1,0 +1,54 @@
+<!doctype html>
+  <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+    <link rel="stylesheet" type="text/css" href="styles.css"> 
+    <link rel="stylesheet" media="screen and (max-width: 700px)" href="small-screen.css">
+    <link rel="stylesheet" media="screen and (min-width: 600px) and (max-width: 940px)" href="medium-screen.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="./images/logo-jeep-blk.png">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest List</title>
+  </head>
+  <body>
+      
+  <div>
+    ID: <input type="text" id="id" />
+  </div>
+  <div>
+    Name: <input type="text" id="name" />
+  </div>
+  <div>
+    Age: <input type="text" id="age" />
+  </div>
+  <div>
+    Email: <input type="email" id="email" />
+  </div>
+  <div>
+    <input type="button" value="add" id="btn" />
+    <input type="button" value="alert all" id="all" />
+  </div>
+  <div>
+    ID to delete: <input type="text" id="delid" />
+    <input type="button" value="delete" id="del" />
+  </div>
+  <script src="html-5-storage-indexeddb.js"></script>
+  <script>
+    //wire up click event to add function
+    document.querySelector("#btn").addEventListener("click", add);
+    document.querySelector("#all").addEventListener("click", readAll);
+    document.querySelector("#del").addEventListener("click", remove);
+  </script>
+
+
+
+
+  </body>
