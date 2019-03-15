@@ -1,11 +1,13 @@
 //some sample data
-const employeeData = [
-   { id: "00-01", name: "Andy", age: 41, email: "andy@cool.com" },
-   { id: "00-02", name: "Frank", age: 32, email: "frank@cool.com" }
+const guestsData = [
+   { firstname: "Andy", lastname:"Jack", email: "andy@cool.com", notes:"hello"},
+   { firstname: "Mike", lastname:"Larry", email: "mike@cool.com", notes:"hello world"}
 ];
 
+const list = document.getElementById('listContainer');
+
 //the database reference
-let db;
+let db; 
 
 //initializes the database
 function initDatabase() {
@@ -23,7 +25,7 @@ function initDatabase() {
 	}
 
    //attempt to open the database
-	let request = window.indexedDB.open("employees", 1);
+	let request = window.indexedDB.open("guest", 1);
 	request.onerror = function(event) {
 		console.log(event);
 	};
@@ -32,15 +34,16 @@ function initDatabase() {
 	request.onsuccess = function(event) { 
 		db = request.result;
 		console.log("success: " + db);
+
 	};
 
    //if no database, create one and fill it with data
 	request.onupgradeneeded = function(event) {
       var db = event.target.result;
-      var objectStore = db.createObjectStore("employee", {keyPath: "id"});
+      var objectStore = db.createObjectStore("guest", {keyPath: "email"});
       
-      for (var i in employeeData) {
-         objectStore.add(employeeData[i]);
+      for (var i in guestsData) {
+         objectStore.add(guestsData[i]);
       }
    }
 }
@@ -48,26 +51,26 @@ function initDatabase() {
 //adds a record as entered in the form
 function add() {
 	//get a reference to the fields in html
-	let id = document.querySelector("#id").value;
-	let name = document.querySelector("#name").value;
+	let firstname = document.querySelector("#firstname").value;
+	let lastname = document.querySelector("#lastname").value;
 	let email = document.querySelector("#email").value;
-	let age = document.querySelector("#age").value;
+	let notes = document.querySelector("#notes").value;
 
 	//alert(id + name + email + age);
    
    //create a transaction and attempt to add data
-	var request = db.transaction(["employee"], "readwrite")
-	.objectStore("employee")
-	.add({ id: id, name: name, age: age, email: email });
+	var request = db.transaction(["guest"], "readwrite")
+	.objectStore("guest")
+	.add({ firstname: firstname, lastname: lastname, email: email, notes: notes});
 
    //when successfully added to the database
 	request.onsuccess = function(event) {
-		alert(`${name} has been added to your database.`);
+		alert(`${firstname} has been added to your database - UPDATE.`);
 	};
 
    //when not successfully added to the database
 	request.onerror = function(event) {
-	alert(`Unable to add data\r\n${name} is already in your database! `);
+	alert(`Unable to add data\r\n${email} is already in your database! `);
 	}
 }
 
@@ -75,10 +78,10 @@ function add() {
 //reads one record by id
 function read() {
    //get a transaction
-   var transaction = db.transaction(["employee"]);
+   var transaction = db.transaction(["guest"]);
    
    //create the object store
-   var objectStore = transaction.objectStore("employee");
+   var objectStore = transaction.objectStore("guest");
 
    //get the data by id
    var request = objectStore.get("00-03");
@@ -90,7 +93,7 @@ function read() {
    request.onsuccess = function(event) {
       // Do something with the request.result!
       if(request.result) {
-         alert("Name: " + request.result.name + ", Age: " + request.result.age + ", Email: " + request.result.email);
+         alert(" FirstName " + cursor.value.firstname + ", Last Name: " + cursor.value.lastname + ", Email: " + cursor.value.email);
       }
       
       else {
@@ -101,28 +104,31 @@ function read() {
 
 //reads all the data in the database
 function readAll() {
-   var objectStore = db.transaction("employee").objectStore("employee");
-   
+   var objectStore = db.transaction("guest").objectStore("guest");
+   list.innerHTML="";
+
    //creates a cursor which iterates through each record
    objectStore.openCursor().onsuccess = function(event) {
       var cursor = event.target.result;
       
       if (cursor) {
-         alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
+         // alert(" FirstName " + cursor.value.firstname + ", Last Name: " + cursor.value.lastname + ", Email: " + cursor.value.email);
+         var node = document.createElement("LI");                 // Create a <li> node
+         var textnode = document.createTextNode(cursor.value.firstname + ' ' + cursor.value.lastname + ' ' + cursor.value.email + ' ' + cursor.value.notes );         // Create a text node
+         node.appendChild(textnode);                              // Append the text to <li>
+         list.appendChild(node);
          cursor.continue();
-      }
-      
-      else {
-         alert("No more entries!");
+
       }
    };
 }
 
+
 //deletes a record by id
 function remove() {
 	let delid = document.querySelector("#delid").value;
-   var request = db.transaction(["employee"], "readwrite")
-   .objectStore("employee")
+   var request = db.transaction(["guest"], "readwrite")
+   .objectStore("guest")
    .delete(delid);
    
    request.onsuccess = function(event) {

@@ -1,51 +1,80 @@
 <!doctype html>
   <html lang="en">
   <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-
-    <link rel="stylesheet" type="text/css" href="styles.css"> 
-    <link rel="stylesheet" media="screen and (max-width: 700px)" href="small-screen.css">
-    <link rel="stylesheet" media="screen and (min-width: 600px) and (max-width: 940px)" href="medium-screen.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="shortcut icon" type="image/png" href="./images/logo-jeep-blk.png">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guest List</title>
+    
+    <title>MARS GUEST LIST</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
   </head>
   <body>
+    
+    <div class="container">  
+      <form id="contact" action="" method="post">
+        <img src="spaceship.png">
+        <h3>Join Our Guest List</h3>
+        <h4>You are flying to Mars!</h4>
+        <fieldset>
+          <input placeholder="First Name" type="text" tabindex="1" id="firstname">
+        </fieldset>
+        <fieldset>
+          <input placeholder="Last Name" type="text" tabindex="1" id="lastname">
+        </fieldset>
+        <fieldset>
+          <input placeholder="Email Address" type="email" tabindex="2" id="email">
+        </fieldset>
+        <fieldset>
+          <textarea placeholder="Notes" tabindex="5" id="notes"></textarea>
+        </fieldset>
+
+
+        <div>
+          <input type="button" value="TAKE ME MARS" id="btn" />
+        </div>
+
+        <div id="viewlist">
+          <!--<button id="all">After joining CLICK HERE to view who's coming!</button>-->
+          <a id="all">After joining CLICK HERE to view who's coming!</a>
+        </div>
+
+         <div id="listContainer">
+        </div>
+
+      </form>
+    </div>
       
-  <div>
-    ID: <input type="text" id="id" />
-  </div>
-  <div>
-    Name: <input type="text" id="name" />
-  </div>
-  <div>
-    Age: <input type="text" id="age" />
-  </div>
-  <div>
-    Email: <input type="email" id="email" />
-  </div>
-  <div>
-    <input type="button" value="add" id="btn" />
-    <input type="button" value="alert all" id="all" />
-  </div>
-  <div>
-    ID to delete: <input type="text" id="delid" />
-    <input type="button" value="delete" id="del" />
-  </div>
+    <!--<div id="header">
+        <h1>Guest List</h1>
+    </div>
+
+    <div class="form">
+
+      <div>
+        First Name: <input type="text" id="firstname" />
+      </div>
+
+      <div>
+        Last Name: <input type="text" id="lastname" />
+      </div>
+
+      <div>
+        Email: <input type="email" id="email" />
+      </div>
+
+      <div>
+        NOTES: <input type="text" id="notes" />
+      </div>
+
+     </div>-->
+
+
   <script src="html-5-storage-indexeddb.js"></script>
   <script>
-    //wire up click event to add function
-    document.querySelector("#btn").addEventListener("click", add);
+   //wire up click event to add function
+   document.querySelector("#btn").addEventListener("click", add);
     document.querySelector("#all").addEventListener("click", readAll);
-    document.querySelector("#del").addEventListener("click", remove);
+    //document.querySelector("#del").addEventListener("click", remove);
   </script>
 
 
